@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --font-inter: var(--font-inter), sans-serif;
+  --font-bebas: var(--font-bebas), sans-serif;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-brand-red: #FF4655;
+  --color-brand-dark: #111111;
+  --color-brand-light: #F9F9F9;
+  --color-brand-bg: #ECE8E1;
+  --color-brand-cards: #0F1923;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  --breakpoint-3xl: 1920px;
+  --breakpoint-4k: 2560px;
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* text hero */
+  --text-hero: 20px;
+  --text-hero--font-weight: 600;
+  --text-hero--line-height: 24px;
+
+  /* text button small */
+  --text-button-sm: 32px;
+  --text-button-sm--line-height: 36px;
+
+  /* text button large */
+  --text-button-lg: 48px;
+  --text-button-lg--line-height: 56px;
+
+  /* text heading */
+  --text-heading: 48px;
+  --text-heading--line-height: 56px;
+
+  /* text big */
+  --text-big: 64px;
+  --text-big--line-height: 72px;
+
+  /* text body */
+  --text-body: 16px;
+  --text-body--line-height: 24px;
 }
