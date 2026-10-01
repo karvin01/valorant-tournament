@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#API key
+.env*.local
+
+#notes
+my-notes.txt

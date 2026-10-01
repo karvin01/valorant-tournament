@@ -31,8 +31,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
-      <body className="font-sans antialiased bg-[#0f1923] text-white">
-        <Navbar /> {/* rendering navbar here */}
+      <body className="font-sans antialiased bg-[#0f1923] text-white w-full min-h-screen overflow-x-hidden">
+        <Navbar />
         {children}
       </body>
     </html>
