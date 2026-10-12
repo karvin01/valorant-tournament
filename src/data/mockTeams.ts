@@ -8,7 +8,7 @@ export const MOCK_TEAMS: Team[] = [
     logo: "/logos/fnc.png", // optional: can be omitted or left blank
     players: [
       { id: "p1", name: "Eldest", tag: "3738" },
-      { id: "p2", name: "Derke", tag: "FNC" },
+      { id: "p2", name: "peanits", tag: "huge" },
       { id: "p3", name: "Alfajer", tag: "FNC" },
       { id: "p4", name: "Chronicle", tag: "FNC" },
       { id: "p5", name: "crashies", tag: "NA" },

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -30,9 +31,12 @@ export default function Hero() {
         </div>
 
         {/* Hero Register Button */}
-        <button className="w-full max-w-[320px] sm:max-w-[420px] md:max-w-[500px] lg:max-w-[550px] h-[64px] sm:h-[80px] md:h-[90px] lg:h-[100px] bg-brand-red uppercase font-bebas text-2xl sm:text-3xl md:text-button-lg text-brand-light leading-none flex items-center justify-center tracking-wider hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-lg shadow-brand-red/20">
+        <Link
+          href="/register"
+          className="w-full max-w-[320px] sm:max-w-[420px] md:max-w-[500px] lg:max-w-[550px] h-[64px] sm:h-[80px] md:h-[90px] lg:h-[100px] bg-brand-red uppercase font-bebas text-2xl sm:text-3xl md:text-button-lg text-brand-light leading-none flex items-center justify-center tracking-wider hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-lg shadow-brand-red/20"
+        >
           REGISTER YOUR TEAM NOW
-        </button>
+        </Link>
       </div>
     </section>
   );

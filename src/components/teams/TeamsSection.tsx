@@ -1,0 +1,107 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { databases, DB_ID, TEAMS_TABLE_ID } from '@/lib/appwrite';
+import { Team, Player } from '@/types/teams';
+import SearchBar from './SearchBar';
+import TeamAccordionItem from './TeamAccordionItem';
+
+export default function TeamsSection() {
+  const [teams, setTeams] = useState<Team[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
+
+  useEffect(() => {
+    async function fetchTeams() {
+      try {
+        const response = await databases.listDocuments(DB_ID, TEAMS_TABLE_ID);
+
+        const formattedTeams: Team[] = response.documents.map((doc) => {
+          const parsePlayer = (playerString: string, index: number): Player => {
+            if (!playerString) return { id: `${doc.$id}-p${index}`, name: 'Unknown', tag: '0000' };
+            const parts = playerString.split('#');
+            return {
+              id: `${doc.$id}-p${index}`,
+              name: parts[0] || 'Unknown',
+              tag: parts[1] || '0000',
+            };
+          };
+
+          return {
+            id: doc.$id,
+            name: doc.teamName || 'Unnamed Team',
+            logo: doc.logoUrl || '/images/Header_logo_valo_small.png',
+            seed: 1, // Satisfies the required Team interface property
+            players: [
+              parsePlayer(doc.player1, 1),
+              parsePlayer(doc.player2, 2),
+              parsePlayer(doc.player3, 3),
+              parsePlayer(doc.player4, 4),
+              parsePlayer(doc.player5, 5),
+            ],
+          };
+        });
+
+        setTeams(formattedTeams);
+      } catch (error) {
+        console.error('Failed to fetch teams:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTeams();
+  }, []);
+
+  const filteredTeams = teams.filter((team) => {
+    const query = searchQuery.toLowerCase();
+    const matchesTeamName = team.name.toLowerCase().includes(query);
+    const matchesPlayer = team.players.some(
+      (p) =>
+        p.name.toLowerCase().includes(query) ||
+        p.tag.toLowerCase().includes(query)
+    );
+    return matchesTeamName || matchesPlayer;
+  });
+
+  return (
+    <div className="w-full relative overflow-hidden bg-brand-cards py-12 xl:py-20 flex flex-col items-center min-h-[calc(100vh-100px)]">
+      <div className="w-full 3xl:max-w-[1800px] 4k:max-w-[2400px] mx-auto px-4 sm:px-6 xl:px-10 flex flex-col items-center">
+        
+        <h1 className="font-bebas text-4xl sm:text-5xl xl:text-6xl text-brand-light tracking-wide mb-3 text-center">
+          TOURNAMENT TEAMS
+        </h1>
+        <p className="font-inter text-sm sm:text-base text-gray-400 text-center mb-10 max-w-xl">
+          Browse rosters and select a player to view live competitive statistics.
+        </p>
+
+        <div className="w-full max-w-4xl mb-8">
+          <SearchBar value={searchQuery} onChange={setSearchQuery} />
+        </div>
+
+        <div className="w-full max-w-4xl flex flex-col gap-4">
+          {loading ? (
+            <div className="text-center py-16 font-bebas text-xl text-gray-400 tracking-wider">
+              LOADING TOURNAMENT TEAMS...
+            </div>
+          ) : filteredTeams.length === 0 ? (
+            <div className="text-center py-16 font-bebas text-xl text-gray-400 tracking-wider bg-white/[0.02] border border-brand-light/10 text-brand-light/60">
+              NO REGISTERED TEAMS FOUND.
+            </div>
+          ) : (
+            filteredTeams.map((team) => (
+              <TeamAccordionItem
+                key={team.id}
+                team={team}
+                selectedPlayer={selectedPlayer}
+                onSelectPlayer={setSelectedPlayer}
+              />
+            ))
+          )}
+        </div>
+
+      </div>
+    </div>
+  );
+}

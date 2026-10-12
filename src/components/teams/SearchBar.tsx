@@ -34,7 +34,7 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="SEARCH TEAM OR PLAYER..."
-        className="w-full pl-10 sm:pl-12 pr-4 py-3 sm:py-3.5 bg-brand-light/[0.03] border border-brand-light/10 rounded focus:border-brand-red focus:outline-none text-brand-light placeholder:text-brand-light/30 text-xs sm:text-sm font-semibold tracking-wider transition-colors uppercase"
+        className="w-full pl-10 sm:pl-12 pr-4 py-3 sm:py-3.5 bg-brand-light/[0.03] border border-brand-light/10 focus:border-brand-red focus:outline-none text-brand-light placeholder:text-brand-light/30 text-xs sm:text-sm font-semibold tracking-wider transition-colors uppercase"
       />
       {/* onChange={(e) => onChange(e.target.value)} --the value is what you type in the field, it is event listener, e.target is the inputbox  */}
     </div>

@@ -45,24 +45,24 @@ function CanvasControls() {
   const { zoomIn, zoomOut, resetTransform } = useControls();
 
   return (
-    <div className="absolute bottom-6 right-6 z-30 flex items-center gap-2 bg-brand-red border border-white/10 p-2 rounded-lg backdrop-blur select-none">
+    <div className="absolute bottom-6 right-6 z-30 flex items-center gap-2 bg-brand-red border border-white/10 p-2 backdrop-blur select-none">
       <button
         onClick={() => zoomIn()}
-        className="w-10 h-10 flex items-center justify-center text-brand-light hover:bg-white/10 rounded font-bold text-xl transition"
+        className="w-10 h-10 flex items-center justify-center text-brand-light hover:bg-white/10 font-bold text-xl transition"
         title="Zoom In"
       >
         +
       </button>
       <button
         onClick={() => zoomOut()}
-        className="w-10 h-10 flex items-center justify-center text-brand-light hover:bg-white/10 rounded font-bold text-xl transition"
+        className="w-10 h-10 flex items-center justify-center text-brand-light hover:bg-white/10 font-bold text-xl transition"
         title="Zoom Out"
       >
         -
       </button>
       <button
         onClick={() => resetTransform(250)}
-        className="px-3 h-9 flex items-center justify-center text-lg font-semibold uppercase tracking-wider text-brand-light font-bebas hover:bg-white/10 rounded transition"
+        className="px-3 h-9 flex items-center justify-center text-lg font-semibold uppercase tracking-wider text-brand-light font-bebas hover:bg-white/10 transition"
       >
         Reset
       </button>
@@ -76,7 +76,7 @@ function MatchCard({ match }: { match?: Match }) {
   const team2 = match?.team2 ?? { name: "TBD" };
 
   return (
-    <div className="w-56 bg-brand-dark/95 border border-white/15 p-2.5 flex flex-col gap-1.5 rounded shadow-2xl select-none">
+    <div className="w-56 bg-brand-dark/95 border border-white/15 p-2.5 flex flex-col gap-1.5 shadow-2xl select-none">
       <div
         className={`flex justify-between items-center text-xs font-semibold ${
           team1.isWinner ? "text-brand-light font-bold" : "text-brand-light/70"
@@ -126,7 +126,7 @@ export default function BracketPage() {
   const minScale = useBracketScale(); // Custom hook to calculate min scale so you cant zoom bigger than the bracket
 
   return (
-    <main className="relative w-full h-[calc(100vh-100px)] overflow-hidden bg-brand-dark select-none">
+    <main className="relative w-full h-[calc(100vh-100px)] overflow-hidden bg-brand-cards select-none">
       {/* 1. fixed background image */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <Image
@@ -213,11 +213,11 @@ export default function BracketPage() {
                     <h2 className="font-bebas text-5xl text-brand-light tracking-wide uppercase">Grand Final</h2>
                   </div>
 
-                  <div className="scale-125 border-2 border-brand-red shadow-[0_0_50px_rgba(255,70,85,0.25)] rounded">
+                  <div className="scale-125 border-2 border-brand-red shadow-[0_0_50px_rgba(255,70,85,0.25)]">
                     <MatchCard match={grandFinal} />
                   </div>
 
-                  <div className="flex flex-col items-center bg-brand-bg text-brand-dark px-10 py-5 rounded font-bebas text-3xl tracking-wider">
+                  <div className="flex flex-col items-center bg-brand-bg text-brand-dark px-10 py-5 font-bebas text-3xl tracking-wider">
                     <span className="text-xs font-sans font-bold text-brand-dark uppercase tracking-widest">Champion</span>
                     TBD
                   </div>
