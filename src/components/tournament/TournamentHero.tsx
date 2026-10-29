@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import TeamCounterCard from '@/components/common/TeamCounterCard';
 
 export default function TournamentHero() {
   return (
@@ -18,8 +19,8 @@ export default function TournamentHero() {
           {/* Left Column Stack */}
           <div className="flex flex-col gap-8">
             {/* registered teams placeholder */}
-            <div className="bg-brand-light p-6 sm:p-8 min-h-[160px] shadow-lg">
-              {/* placeholder */}
+            <div className="w-full shadow-lg">
+              <TeamCounterCard />
             </div>
 
             {/* tournament structure container */}

@@ -1,4 +1,5 @@
 import CountdownCard from "@/components/home/CountdownCard";
+import TeamCounterCard from "@/components/common/TeamCounterCard";
 
 export default function HomeCards() {
   return (
@@ -22,19 +23,8 @@ export default function HomeCards() {
             </div>
           </div>
 
-          {/* Card 2: Teams */}
-          <div className="flex flex-col w-full h-[180px] sm:h-[200px] lg:h-[220px] overflow-hidden select-none shadow-md">
-            <div className="bg-brand-dark py-2.5 sm:py-3 text-center">
-              <span className="font-bebas text-xl sm:text-2xl lg:text-button-lg tracking-wider text-brand-light uppercase">
-                TEAMS
-              </span>
-            </div>
-            <div className="bg-brand-bg flex-1 py-4 sm:py-6 px-4 flex flex-col items-center justify-center">
-              <span className="font-bebas text-3xl sm:text-4xl lg:text-button-lg text-brand-dark tracking-tight">
-                16 SLOTS
-              </span>
-            </div>
-          </div>
+          {/* Card 2: Teams (Now dynamic from Appwrite) */}
+          <TeamCounterCard />
 
           {/* Card 3: Entry Fee */}
           <div className="flex flex-col w-full h-[180px] sm:h-[200px] lg:h-[220px] overflow-hidden select-none shadow-md">

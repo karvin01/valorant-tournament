@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Team, Player } from "@/types/teams";
 import PlayerStats from "./PlayerStats";
+import PlayerList from "./PlayerList";
 
 interface TeamAccordionItemProps {
   team: Team;
@@ -16,13 +17,10 @@ export default function TeamAccordionItem({
   onSelectPlayer,
 }: TeamAccordionItemProps) {
   const [isOpen, setIsOpen] = useState(false);
-
-  // Ensure it uses the custom team logo, or falls back to the default header logo
   const teamLogo = team.logo || "/images/Header_logo_valo_small.png";
 
   return (
     <div className="w-full bg-white/[0.03] border border-brand-light/10 overflow-hidden">
-      {/* Header Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -31,11 +29,7 @@ export default function TeamAccordionItem({
         <div className="flex items-center gap-3 sm:gap-4">
           <div className="w-8 h-8 relative shrink-0 flex items-center justify-center bg-brand-dark border border-brand-light/20 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={teamLogo}
-              alt={`${team.name} logo`}
-              className="w-full h-full object-cover"
-            />
+            <img src={teamLogo} alt={`${team.name} logo`} className="w-full h-full object-cover" />
           </div>
           <span className="font-semibold text-brand-light tracking-wide text-sm sm:text-base">
             {team.name}
@@ -50,47 +44,21 @@ export default function TeamAccordionItem({
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M19 9l-7 7-7-7"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
 
-      {/* Expanded Split Layout */}
       {isOpen && (
         <div className="border-t border-brand-light/10 p-4 sm:p-5 lg:p-6 bg-brand-dark/40">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-start">
-            
-            {/* Left: Players list */}
-            <div className="flex flex-col gap-2 lg:col-span-4 3xl:col-span-3 w-full">
-              {team.players.map((player) => {
-                const isSelected = selectedPlayer?.id === player.id;
-                return (
-                  <button
-                    key={player.id}
-                    type="button"
-                    onClick={() => onSelectPlayer(player)}
-                    className={`flex items-center justify-between px-3.5 sm:px-4 py-2.5 sm:py-3 text-left transition-all cursor-pointer border ${
-                      isSelected
-                        ? "bg-brand-red/10 border-brand-red text-brand-light shadow-[0_0_15px_rgba(255,70,85,0.15)]"
-                        : "bg-brand-light/[0.02] border-brand-light/5 text-brand-light/80 hover:border-brand-light/20 hover:text-brand-light"
-                    }`}
-                  >
-                    <span className="text-xs sm:text-sm font-semibold truncate">
-                      {player.name}
-                    </span>
-                    <span className="text-[11px] sm:text-xs text-brand-light/40 font-mono">
-                      #{player.tag}
-                    </span>
-                  </button>
-                );
-              })}
+            <div className="lg:col-span-4 3xl:col-span-3 w-full">
+              <PlayerList
+                players={team.players}
+                selectedPlayer={selectedPlayer}
+                onSelectPlayer={onSelectPlayer}
+                showCaptainLabel={false}
+              />
             </div>
-
-            {/* Right: Info Panel */}
             <div className="w-full lg:col-span-8 3xl:col-span-9">
               <PlayerStats
                 player={
@@ -100,7 +68,6 @@ export default function TeamAccordionItem({
                 }
               />
             </div>
-
           </div>
         </div>
       )}

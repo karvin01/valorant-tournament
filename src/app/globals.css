@@ -4,7 +4,7 @@
   --font-inter: var(--font-inter), sans-serif;
   --font-bebas: var(--font-bebas), sans-serif;
 
-  --color-brand-red: #FF4655;
+  --color-brand-red: brand-red;
   --color-brand-dark: #111111;
   --color-brand-light: #F9F9F9;
   --color-brand-bg: #ECE8E1;

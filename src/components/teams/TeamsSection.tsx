@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { databases, DB_ID, TEAMS_TABLE_ID } from '@/lib/appwrite';
 import { Team, Player } from '@/types/teams';
+import { fetchAllTeams } from '@/lib/teamsService';
 import SearchBar from './SearchBar';
 import TeamAccordionItem from './TeamAccordionItem';
 
@@ -13,54 +13,24 @@ export default function TeamsSection() {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
 
   useEffect(() => {
-    async function fetchTeams() {
+    async function loadTeams() {
       try {
-        const response = await databases.listDocuments(DB_ID, TEAMS_TABLE_ID);
-
-        const formattedTeams: Team[] = response.documents.map((doc) => {
-          const parsePlayer = (playerString: string, index: number): Player => {
-            if (!playerString) return { id: `${doc.$id}-p${index}`, name: 'Unknown', tag: '0000' };
-            const parts = playerString.split('#');
-            return {
-              id: `${doc.$id}-p${index}`,
-              name: parts[0] || 'Unknown',
-              tag: parts[1] || '0000',
-            };
-          };
-
-          return {
-            id: doc.$id,
-            name: doc.teamName || 'Unnamed Team',
-            logo: doc.logoUrl || '/images/Header_logo_valo_small.png',
-            seed: 1, // Satisfies the required Team interface property
-            players: [
-              parsePlayer(doc.player1, 1),
-              parsePlayer(doc.player2, 2),
-              parsePlayer(doc.player3, 3),
-              parsePlayer(doc.player4, 4),
-              parsePlayer(doc.player5, 5),
-            ],
-          };
-        });
-
-        setTeams(formattedTeams);
+        const data = await fetchAllTeams();
+        setTeams(data);
       } catch (error) {
         console.error('Failed to fetch teams:', error);
       } finally {
         setLoading(false);
       }
     }
-
-    fetchTeams();
+    loadTeams();
   }, []);
 
   const filteredTeams = teams.filter((team) => {
     const query = searchQuery.toLowerCase();
     const matchesTeamName = team.name.toLowerCase().includes(query);
     const matchesPlayer = team.players.some(
-      (p) =>
-        p.name.toLowerCase().includes(query) ||
-        p.tag.toLowerCase().includes(query)
+      (p) => p.name.toLowerCase().includes(query) || p.tag.toLowerCase().includes(query)
     );
     return matchesTeamName || matchesPlayer;
   });

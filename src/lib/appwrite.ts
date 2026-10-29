@@ -1,29 +1,33 @@
-import { Client, Account, Databases, Storage } from 'appwrite';
+import { Client, Account, Databases, Storage, ID } from 'appwrite';
 
 export const client = new Client();
 
 client
-    .setEndpoint('https://fra.cloud.appwrite.io/v1') // Appwrite API Endpoint
-    .setProject('6acccd7500222ca47334'); // Project ID from the Appwrite dashboard
+    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!) 
+    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!); 
 
 export const account = new Account(client);
 export const databases = new Databases(client);
 export const storage = new Storage(client);
-export { ID } from 'appwrite';
+export { ID };
 
-// Table & Database configuration constants
-export const DB_ID = '6accd37d00265e8e3afd';
-export const TEAMS_TABLE_ID = '6accd3a5002a4ed4b00e';
-
+// Table, Database & Storage configuration constants
+export const DB_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!;
+export const TEAMS_TABLE_ID = process.env.NEXT_PUBLIC_APPWRITE_TEAMS_TABLE_ID!;
+export const BRACKETS_TABLE_ID = process.env.NEXT_PUBLIC_APPWRITE_BRACKETS_TABLE_ID!;
+export const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID!;
 
 // admin checks
 export async function checkIsAdmin(): Promise<boolean> {
   try {
     const user = await account.get();
-    // Check if the user's prefs contain isAdmin: true
-    return user.prefs && user.prefs.isAdmin === true;
+    console.log("Current Logged In User:", user);
+    console.log("User Preferences:", user.prefs);
+
+    // Check if prefs exists and contains isAdmin as true or "true"
+    return Boolean(user.prefs && (user.prefs.isAdmin === true || user.prefs.isAdmin === "true"));
   } catch (error) {
-    // If not logged in or an error occurs, they are not an admin
+    console.error("Auth check failed:", error);
     return false;
   }
 }
