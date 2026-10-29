@@ -53,7 +53,7 @@ export default function CompleteRosterForm() {
       <p className="font-inter text-sm text-gray-600 text-center mb-8">Enter your team name and all 5 player Riot IDs (with tags, e.g., Tenz#0001).</p>
 
       <form onSubmit={handleSaveRoster} className="flex flex-col gap-6">
-        {error && <div className="bg-[brand-red]/10 border border-[brand-red] text-[brand-red] p-3 font-inter text-sm">{error}</div>}
+        {error && <div className="bg-brand-red/10 border border-brand-red text-brand-red p-3 font-inter text-sm">{error}</div>}
 
         <div className="flex flex-col gap-2">
           <label htmlFor="roster-team" className="font-bebas tracking-wider text-brand-dark text-sm">Team Name</label>
@@ -64,7 +64,7 @@ export default function CompleteRosterForm() {
             onChange={(e) => setTeamName(e.target.value)}
             required
             maxLength={30}
-            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-[brand-red]"
+            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-brand-red"
             placeholder="e.g. Sentinels"
           />
         </div>
@@ -80,7 +80,7 @@ export default function CompleteRosterForm() {
               required
               placeholder="Name#Tag"
               maxLength={40}
-              className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-[brand-red]"
+              className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-brand-red"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -93,7 +93,7 @@ export default function CompleteRosterForm() {
               required
               placeholder="Name#Tag"
               maxLength={40}
-              className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-[brand-red]"
+              className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-brand-red"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -106,7 +106,7 @@ export default function CompleteRosterForm() {
               required
               placeholder="Name#Tag"
               maxLength={40}
-              className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-[brand-red]"
+              className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-brand-red"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -119,7 +119,7 @@ export default function CompleteRosterForm() {
               required
               placeholder="Name#Tag"
               maxLength={40}
-              className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-[brand-red]"
+              className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-brand-red"
             />
           </div>
         </div>
@@ -134,14 +134,14 @@ export default function CompleteRosterForm() {
             required
             placeholder="Name#Tag"
             maxLength={40}
-            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-[brand-red]"
+            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-brand-red"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="mt-4 bg-[brand-red] hover:bg-[#e03846] text-brand-light font-bebas text-lg tracking-widest py-3.5 transition-all uppercase cursor-pointer disabled:opacity-50"
+          className="mt-4 bg-brand-red hover:bg-[#e03846] text-brand-light font-bebas text-lg tracking-widest py-3.5 transition-all uppercase cursor-pointer disabled:opacity-50"
         >
           {loading ? 'SAVING ROSTER...' : 'FINISH REGISTRATION'}
         </button>

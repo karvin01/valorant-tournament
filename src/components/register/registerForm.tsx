@@ -55,7 +55,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
       <p className="font-inter text-sm text-gray-600 text-center mb-8">Sign up to register your squad for the tournament.</p>
 
       <form onSubmit={handleRegister} className="flex flex-col gap-5">
-        {error && <div className="bg-[brand-red]/10 border border-[brand-red] text-[brand-red] p-3 font-inter text-sm">{error}</div>}
+        {error && <div className="bg-brand-red/10 border border-brand-red text-brand-red p-3 font-inter text-sm">{error}</div>}
 
         <div className="flex flex-col gap-2">
           <label htmlFor="reg-name" className="font-bebas tracking-wider text-brand-dark text-sm">Display Name</label>
@@ -66,7 +66,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
             onChange={(e) => setName(e.target.value)}
             required
             maxLength={30}
-            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-[brand-red]"
+            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-brand-red"
             placeholder="e.g. TenzFan99" />
         </div>
 
@@ -77,7 +77,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
             type="email" value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-[brand-red]"
+            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-brand-red"
             placeholder="name@example.com" />
         </div>
 
@@ -89,7 +89,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-[brand-red]"
+            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-brand-red"
             placeholder="At least 8 characters" />
           <span className="text-[11px] text-gray-500 font-inter">Must be 8+ chars with 1 uppercase letter, 1 number, and 1 special character.</span>
         </div>
@@ -102,11 +102,11 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-[brand-red]"
+            className="bg-white border border-gray-300 text-brand-dark px-4 py-3 font-inter text-sm focus:outline-none focus:border-brand-red"
             placeholder="Re-enter password" />
         </div>
 
-        <button type="submit" disabled={loading} className="mt-4 bg-[brand-red] hover:bg-[#e03846] text-brand-light font-bebas text-lg tracking-widest py-3.5 transition-all uppercase cursor-pointer disabled:opacity-50">
+        <button type="submit" disabled={loading} className="mt-4 bg-brand-red hover:bg-[#e03846] text-brand-light font-bebas text-lg tracking-widest py-3.5 transition-all uppercase cursor-pointer disabled:opacity-50">
           {loading ? 'CREATING ACCOUNT...' : 'NEXT: TEAM ROSTER'}
         </button>
       </form>
