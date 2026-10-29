@@ -125,8 +125,16 @@ export default function Navbar() {
             <Link href="/bracket" onClick={closeMenu} className="hover:text-brand-red transition-colors">Bracket</Link>
             <Link href="/news" onClick={closeMenu} className="hover:text-brand-red transition-colors">News</Link>
             {isAdmin && (
-              <Link href="/admin/bracket" onClick={closeMenu} className="text-brand-red font-semibold transition-colors">
-                ⚙️ Admin: Update Bracket
+              <Link 
+                href="/admin/bracket" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("Navigating to bracket admin..."); // Let's see if this prints!
+                  setAdminMenuOpen(false);
+                }} 
+                className="px-4 py-2 text-sm font-inter text-brand-light hover:text-white hover:bg-brand-red/20 transition-colors"
+              >
+                Update Bracket
               </Link>
             )}
           </nav>
