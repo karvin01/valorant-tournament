@@ -15,7 +15,16 @@ export async function loginUser(email: string, pass: string): Promise<{ redirect
   // 2. Get user details
   const user = await account.get();
 
-  // 3. Check if team roster exists in database
+  // 3. ADMIN BYPASS: If admin, skip team roster check and go straight to admin panel
+  const isAdmin = Boolean(
+    user.prefs && (user.prefs.isAdmin === true || user.prefs.isAdmin === "true")
+  );
+
+  if (isAdmin) {
+    return { redirectPath: "/admin/bracket" };
+  }
+
+  // 4. Regular players: Check if team roster exists in database
   const response = await databases.listDocuments(
     DB_ID,
     TEAMS_TABLE_ID,
