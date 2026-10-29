@@ -3,9 +3,13 @@
 import { Player } from "@/types/teams";
 
 interface PlayerListProps {
+  // Array of 5 parsed player records containing name, tag, and id
   players: Player[];
+  // Currently highlighted player item
   selectedPlayer: Player | null;
+  // State setter dispatched to load player data into PlayerStats component
   onSelectPlayer: (player: Player) => void;
+  // Controls display of 'CAPTAIN' / 'PLAYER #' badges (true in MyTeam, false in public accordion)
   showCaptainLabel?: boolean;
 }
 
@@ -18,6 +22,7 @@ export default function PlayerList({
   return (
     <div className="flex flex-col gap-2 w-full">
       {players.map((player, index) => {
+        // Evaluate active selection state to apply crimson border and glow
         const isSelected = selectedPlayer?.id === player.id;
         return (
           <button
@@ -30,9 +35,11 @@ export default function PlayerList({
                 : "bg-brand-light/[0.02] border-brand-light/5 text-brand-light/80 hover:border-brand-light/20 hover:text-brand-light"
             }`}
           >
+            {/* Player Riot ID Username and Optional Role Tag */}
             <div className="flex flex-col truncate">
               {showCaptainLabel && (
                 <span className="text-xs font-bebas tracking-wide text-brand-red mb-0.5">
+                  {/* First player in array is designated squad captain */}
                   {index === 0 ? 'CAPTAIN' : `PLAYER ${index + 1}`}
                 </span>
               )}
@@ -40,6 +47,8 @@ export default function PlayerList({
                 {player.name}
               </span>
             </div>
+
+            {/* Riot ID Tagline */}
             <span className="text-xs text-brand-light/40 font-mono">
               #{player.tag}
             </span>

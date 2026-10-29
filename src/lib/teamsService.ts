@@ -2,7 +2,13 @@ import { databases, storage, DB_ID, TEAMS_TABLE_ID, BUCKET_ID } from "@/lib/appw
 import { Team, Player } from "@/types/teams";
 import { Models, Permission, Role, ID, Query } from "appwrite";
 
+/**
+ * @file teamsService.ts
+ * @description Data access layer for retrieving team listings, parsing player handles,
+ * and uploading team logos to Appwrite Storage.
+ */
 
+// Appwrite Teams document structure mapping database schema
 export interface TeamDocument extends Models.Document {
   teamName: string;
   userId: string;
@@ -14,6 +20,14 @@ export interface TeamDocument extends Models.Document {
   player5: string;
 }
 
+/**
+ * Parses raw "Username#Tag" strings into structured Player objects.
+ *
+ * @param playerString Raw Riot ID input string (e.g. "Tenz#0001")
+ * @param docId Parent document ID for deterministic unique keying
+ * @param index Roster position index (1-5)
+ * @returns Structured Player entity
+ */
 export function parsePlayer(playerString: string, docId: string, index: number): Player {
   if (!playerString) return { id: `${docId}-p${index}`, name: 'Unknown', tag: '0000' };
   const parts = playerString.split('#');
@@ -24,6 +38,11 @@ export function parsePlayer(playerString: string, docId: string, index: number):
   };
 }
 
+/**
+ * Fetches all registered teams and normalizes them into UI-ready `Team` objects.
+ *
+ * @returns Array of formatted Team objects with parsed player rosters
+ */
 export async function fetchAllTeams(): Promise<Team[]> {
   const response = await databases.listDocuments(DB_ID, TEAMS_TABLE_ID);
 
@@ -45,6 +64,12 @@ export async function fetchAllTeams(): Promise<Team[]> {
   });
 }
 
+/**
+ * Retrieves the specific team document registered under a user's Appwrite ID.
+ *
+ * @param userId Unique identifier of the logged-in captain
+ * @returns Team document and parsed players array, or null if no team exists
+ */
 export async function fetchUserTeam(userId: string): Promise<{ doc: TeamDocument; players: Player[] } | null> {
   const response = await databases.listDocuments(
     DB_ID,
@@ -66,7 +91,16 @@ export async function fetchUserTeam(userId: string): Promise<{ doc: TeamDocument
   return { doc, players };
 }
 
+/**
+ * Uploads a team logo file to Appwrite Storage and updates the team database document.
+ * Sets public read permissions on the uploaded file so it renders across the app.
+ *
+ * @param teamId Team document ID to update
+ * @param file Image File selected by the user
+ * @returns Direct public view URL of the stored file
+ */
 export async function uploadTeamLogo(teamId: string, file: File): Promise<string> {
+  // Store file in Appwrite Storage bucket with public read access
   const uploadedFile = await storage.createFile(
     BUCKET_ID,
     ID.unique(),
@@ -74,8 +108,10 @@ export async function uploadTeamLogo(teamId: string, file: File): Promise<string
     [Permission.read(Role.any())]
   );
 
+  // Generate public view URL
   const fileUrl = storage.getFileView(BUCKET_ID, uploadedFile.$id);
 
+  // Update team document with the public logo URL
   await databases.updateDocument(
     DB_ID,
     TEAMS_TABLE_ID,

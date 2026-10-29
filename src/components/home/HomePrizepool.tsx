@@ -1,5 +1,9 @@
 import Image from "next/image";
 
+/**
+ * @file HomePrizepool.tsx
+ * @description Tournament podium showcase highlighting rewards, trophies, and tournament qualification seeds for 1st, 2nd, and 3rd place finishes.
+ */
 export default function PrizePool() {
   return (
     <section className="w-full bg-brand-dark py-12 md:py-16">
@@ -14,7 +18,7 @@ export default function PrizePool() {
         */}
         <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-16 lg:gap-8 xl:gap-12 max-w-5xl mx-auto">
 
-          {/* 1. CHAMPION UNIT (1st place) */}
+          {/* 1. CHAMPION UNIT (1st place) - prominent center podium placement on desktop (order-2) */}
           <div className="order-1 lg:order-2 flex flex-col items-center w-full max-w-[320px]">
             {/* Champion Badge (natural flow, no negative offset bugs) */}
             <div className="relative w-[280px] lg:w-[326px] h-[115px] lg:h-[135px] mb-6">
@@ -57,7 +61,7 @@ export default function PrizePool() {
             </div>
           </div>
 
-          {/* 2. 2ND PLACE UNIT */}
+          {/* 2. 2ND PLACE UNIT - positioned left of champion on desktop (order-1) */}
           <div className="order-2 lg:order-1 flex flex-col items-center w-full max-w-[300px]">
             {/* 2nd Place Badge */}
             <div className="relative w-[230px] lg:w-[260px] h-[95px] lg:h-[110px] mb-6">
@@ -99,7 +103,7 @@ export default function PrizePool() {
             </div>
           </div>
 
-          {/* 3. 3RD PLACE UNIT */}
+          {/* 3. 3RD PLACE UNIT - positioned right of champion on desktop (order-3) */}
           <div className="order-3 flex flex-col items-center w-full max-w-[300px]">
             {/* 3rd Place Badge */}
             <div className="relative w-[230px] lg:w-[260px] h-[95px] lg:h-[110px] mb-6">

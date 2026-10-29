@@ -1,6 +1,10 @@
 import CountdownCard from "@/components/home/CountdownCard";
 import TeamCounterCard from "@/components/common/TeamCounterCard";
 
+/**
+ * @file HomeCards.tsx
+ * @description Quick tournament overview bar displaying primary metrics: prize pool, live registration count, entry fee, and registration countdown.
+ */
 export default function HomeCards() {
   return (
     <section className="bg-brand-red py-10 sm:py-14 w-full">
@@ -40,7 +44,7 @@ export default function HomeCards() {
             </div>
           </div>
 
-          {/* Card 4: Countdown */}
+          {/* Card 4: Countdown - target registration cutoff timestamp */}
           <CountdownCard targetDate="2026-10-30T23:59:59" />
 
         </div>

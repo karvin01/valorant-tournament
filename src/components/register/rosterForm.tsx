@@ -5,27 +5,35 @@ import { saveTeamRoster } from '@/lib/authService';
 
 export default function CompleteRosterForm() {
   const router = useRouter();
+
+  // --- ROSTER DATA STATE ---
   const [teamName, setTeamName] = useState('');
   const [player1, setPlayer1] = useState('');
   const [player2, setPlayer2] = useState('');
   const [player3, setPlayer3] = useState('');
   const [player4, setPlayer4] = useState('');
   const [player5, setPlayer5] = useState('');
+
+  // --- SUBMISSION STATUS STATE ---
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Riot ID format validator: Name (3-16 chars) followed by # and Tagline (3-5 chars)
   const riotIdRegex = /^[a-zA-Z0-9]{3,16}#[a-zA-Z0-9]{3,5}$/;
 
+  // --- ROSTER SUBMISSION HANDLER ---
   const handleSaveRoster = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
+    // Enforce team name length bounds
     const trimmedTeam = teamName.trim();
     if (trimmedTeam.length < 2 || trimmedTeam.length > 30) {
       setError('Team name must be between 2 and 30 characters.');
       return;
     }
 
+    // Validate that all 5 player slots adhere strictly to standard Riot ID structure
     const players = [player1, player2, player3, player4, player5];
     for (let i = 0; i < players.length; i++) {
       if (!riotIdRegex.test(players[i].trim())) {
@@ -37,7 +45,9 @@ export default function CompleteRosterForm() {
     setLoading(true);
 
     try {
+      // Store team and player array into Appwrite Teams collection bound to current user's ID
       await saveTeamRoster(trimmedTeam, players);
+      // Roster registered successfully; route user to homepage
       router.push('/');
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to save team roster.';
@@ -53,8 +63,10 @@ export default function CompleteRosterForm() {
       <p className="font-inter text-sm text-gray-600 text-center mb-8">Enter your team name and all 5 player Riot IDs (with tags, e.g., Tenz#0001).</p>
 
       <form onSubmit={handleSaveRoster} className="flex flex-col gap-6">
+        {/* Dynamic Error Banner */}
         {error && <div className="bg-brand-red/10 border border-brand-red text-brand-red p-3 font-inter text-sm">{error}</div>}
 
+        {/* Team Name Input */}
         <div className="flex flex-col gap-2">
           <label htmlFor="roster-team" className="font-bebas tracking-wider text-brand-dark text-sm">Team Name</label>
           <input
@@ -69,6 +81,7 @@ export default function CompleteRosterForm() {
           />
         </div>
 
+        {/* Starting 4 Lineup Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex flex-col gap-2">
             <label htmlFor="roster-p1" className="font-bebas tracking-wider text-brand-dark text-sm">Player 1 (Captain) Riot ID</label>
@@ -124,6 +137,7 @@ export default function CompleteRosterForm() {
           </div>
         </div>
 
+        {/* 5th Player Input */}
         <div className="flex flex-col gap-2">
           <label htmlFor="roster-p5" className="font-bebas tracking-wider text-brand-dark text-sm">Player 5 Riot ID</label>
           <input
@@ -138,6 +152,7 @@ export default function CompleteRosterForm() {
           />
         </div>
 
+        {/* Finalize Button */}
         <button
           type="submit"
           disabled={loading}

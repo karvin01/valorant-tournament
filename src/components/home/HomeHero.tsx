@@ -1,10 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
+/**
+ * @file HomeHero.tsx
+ * @description Landing page hero section featuring the main banner graphic, backdrop gradients, and primary registration call-to-action.
+ */
 export default function Hero() {
   return (
     <section className="relative w-full min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] 2xl:min-h-[750px] 3xl:min-h-[850px] 4k:min-h-[1000px] flex items-center justify-center overflow-hidden px-4 sm:px-6">
-      {/* Background Image */}
+      {/* Background Image: positioned with object-cover and offset to center key visual focal point */}
       <Image
         src="/images/homepics/HeroHomepage.jpeg"
         alt="Hero Background"
@@ -18,7 +22,7 @@ export default function Hero() {
 
       {/* Logo & Call to Action */}
       <div className="relative z-20 flex flex-col items-center justify-center gap-8 sm:gap-12 md:gap-16 py-12 md:py-16 w-full max-w-4xl mx-auto">
-        {/* Tournament Hero Logo */}
+        {/* Tournament Hero Logo: responsive container scaling with viewport boundaries */}
         <div className="relative w-full flex justify-center">
           <Image
             src="/images/homepics/HeroLogo.png"
@@ -30,7 +34,7 @@ export default function Hero() {
           />
         </div>
 
-        {/* Hero Register Button */}
+        {/* Hero Register Button: routes prospective teams straight to registration flow */}
         <Link
           href="/register"
           className="w-full max-w-[320px] sm:max-w-[420px] md:max-w-[500px] lg:max-w-[550px] h-[64px] sm:h-[80px] md:h-[90px] lg:h-[100px] bg-brand-red uppercase font-bebas text-2xl sm:text-3xl md:text-button-lg text-brand-light leading-none flex items-center justify-center tracking-wider hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-lg shadow-brand-red/20"

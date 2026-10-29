@@ -6,36 +6,49 @@ import PlayerStats from "./PlayerStats";
 import PlayerList from "./PlayerList";
 
 interface TeamAccordionItemProps {
+  // Team object including unique ID, squad name, logo URL, and players array
   team: Team;
+  // Currently selected player across the page
   selectedPlayer: Player | null;
+  // Selection handler passed down to inner PlayerList
   onSelectPlayer: (player: Player) => void;
 }
 
+/**
+ * @file TeamAccordionItem.tsx
+ * @description Expandable accordion item displaying team banner, logo, and embedded roster inspector.
+ */
 export default function TeamAccordionItem({
   team,
   selectedPlayer,
   onSelectPlayer,
 }: TeamAccordionItemProps) {
+  // Accordion drawer toggle state
   const [isOpen, setIsOpen] = useState(false);
+  // Default placeholder logo fallback if team hasn't uploaded custom asset
   const teamLogo = team.logo || "/images/Header_logo_valo_small.png";
 
   return (
     <div className="w-full bg-white/[0.03] border border-brand-light/10 overflow-hidden">
+      {/* Accordion Header / Trigger Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between text-left hover:bg-white/[0.04] transition-colors cursor-pointer select-none"
       >
         <div className="flex items-center gap-3 sm:gap-4">
+          {/* Team Crest Icon */}
           <div className="w-8 h-8 relative shrink-0 flex items-center justify-center bg-brand-dark border border-brand-light/20 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={teamLogo} alt={`${team.name} logo`} className="w-full h-full object-cover" />
           </div>
+          {/* Team Name */}
           <span className="font-semibold text-brand-light tracking-wide text-sm sm:text-base">
             {team.name}
           </span>
         </div>
 
+        {/* Accordion Chevron: rotates 180deg when expanded */}
         <svg
           className={`w-4 h-4 text-brand-light/50 transition-transform duration-200 shrink-0 ${
             isOpen ? "rotate-180" : ""
@@ -48,9 +61,11 @@ export default function TeamAccordionItem({
         </svg>
       </button>
 
+      {/* Collapsible Content Section */}
       {isOpen && (
         <div className="border-t border-brand-light/10 p-4 sm:p-5 lg:p-6 bg-brand-dark/40">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-start">
+            {/* Team Roster Selection Column */}
             <div className="lg:col-span-4 3xl:col-span-3 w-full">
               <PlayerList
                 players={team.players}
@@ -59,9 +74,11 @@ export default function TeamAccordionItem({
                 showCaptainLabel={false}
               />
             </div>
+            {/* Live Henrik API Stats Card Column */}
             <div className="w-full lg:col-span-8 3xl:col-span-9">
               <PlayerStats
                 player={
+                  // Only display stats if the actively selected player belongs to this team
                   team.players.some((p) => p.id === selectedPlayer?.id)
                     ? selectedPlayer
                     : null

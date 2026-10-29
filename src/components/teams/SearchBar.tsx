@@ -3,12 +3,16 @@
 // has to recieve string and onSearch it
 //onChange must be a function that accepts one piece of text(query), and returns nothing
 interface SearchBarProps {
-    value: string;
-    onChange: (query: string) => void;
+  // Current search keyword managed by parent state
+  value: string;
+  // State dispatcher notifying parent of user keystrokes
+  onChange: (query: string) => void;
 }
 
-
-
+/**
+ * @file SearchBar.tsx
+ * @description Real-time text search filter for matching team titles or player handles.
+ */
 export default function SearchBar({ value, onChange }: SearchBarProps) {
   return (
     <div className="relative w-full">
@@ -28,6 +32,7 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
           />
         </svg>
       </div>
+
       {/* search input field */}
       <input
         type="text"
