@@ -21,13 +21,15 @@ export const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID!;
 export async function checkIsAdmin(): Promise<boolean> {
   try {
     const user = await account.get();
-    console.log("Current Logged In User:", user);
-    console.log("User Preferences:", user.prefs);
+    console.log("SUCCESS - Logged in user:", user.name, user.email);
+    console.log("SUCCESS - User preferences:", user.prefs);
 
-    // Check if prefs exists and contains isAdmin as true or "true"
-    return Boolean(user.prefs && (user.prefs.isAdmin === true || user.prefs.isAdmin === "true"));
+    const isAdmin = Boolean(user.prefs && (user.prefs.isAdmin === true || user.prefs.isAdmin === "true"));
+    console.log("Is Admin evaluated to:", isAdmin);
+    
+    return isAdmin;
   } catch (error) {
-    console.error("Auth check failed:", error);
+    console.error("Auth check failed with error:", error);
     return false;
   }
 }
